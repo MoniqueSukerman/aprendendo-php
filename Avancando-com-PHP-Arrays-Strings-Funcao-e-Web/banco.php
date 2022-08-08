@@ -1,0 +1,56 @@
+<?php
+
+//subrotina (sem retorno)                  "void": tipagem indica que não haverá retorno
+function exibeMensagem(string $mensagem) : void
+{
+    echo $mensagem . PHP_EOL;
+}
+
+//função (tem retorno)  tipagem dos parâmetros e do retorno, respectivamente
+function sacar(array $conta, float $valorASacar) : array
+{
+    if ($valorASacar > $conta['saldo']) {
+        exibeMensagem("Você não pode sacar este valor");
+    } else {
+        $conta['saldo'] -= $valorASacar;
+    }
+
+    return $conta;
+}
+
+function depositar(array $conta, float $valorADepositar) : array
+{
+    if ($valorADepositar > 0) {
+        $conta['saldo'] += $valorADepositar;
+    } else {
+        exibeMensagem("Depósitos precisam ser positivos");
+    }
+
+    return $conta;
+}
+
+$contasCorrentes = [
+'123.456.789-10' => [
+    'titular' => 'Vinicius',
+    'saldo' => 1000
+],
+'123.455.789-10' => [
+    'titular' => 'Maria',
+    'saldo' => 10000
+], 
+'123.567.639-10' => [
+    'titular' => 'Alberto',
+    'saldo' => 300
+]
+];
+
+
+//acessando a chave/indíce '123.456.789-10' na array associativa $contasCorrentes
+$contasCorrentes['123.456.789-10'] = sacar($contasCorrentes['123.456.789-10'], 500);
+$contasCorrentes['123.456.789-10'] = depositar($contasCorrentes['123.456.789-10'], -500);
+
+
+//                          identificadores das chaves iteradas e identificador dos itens iterados, respectivamente
+foreach ($contasCorrentes as $cpf => $conta) {
+    exibeMensagem($cpf . " " . $conta['titular'] . ' ' . $conta['saldo']);
+}
