@@ -28,3 +28,10 @@ function depositar(array $conta, float $valorADepositar) : array
 
     return $conta;
 }
+                                    //o & passa a variável por referência, ou seja, dá acesso direto à instancia daquela variável
+function titularComLetrasMaiusculas(array &$conta)
+{
+    $conta['titular'] = mb_strtoupper($conta['titular']);
+
+    echo $conta['titular'] . PHP_EOL;
+}
